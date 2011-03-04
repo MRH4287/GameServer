@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  
+  <TCP>
+    <port>15000</port>
+  </TCP>
+
+  <Game>
+    <GameDataPath>./</GameDataPath>
+
+    <Map>
+      <File>(4)GoldeneMitte.map</File>
+      <ConnectRange>100</ConnectRange>
+      <MaxConnections>4</MaxConnections>
+      <MaxDepth>5</MaxDepth>
+    </Map>
+    
+    <System>
+      <max_resources>9999999</max_resources>
+    </System>
+    
+  </Game>
+  
+</config>
