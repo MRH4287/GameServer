@@ -62,8 +62,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NetworkLib">
-      <HintPath>..\..\..\Libary\NetworkLib\NetworkLib\bin\Debug\NetworkLib.dll</HintPath>
+    <Reference Include="NetworkLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\NetworkLib.dll</HintPath>
     </Reference>
     <Reference Include="Share, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
