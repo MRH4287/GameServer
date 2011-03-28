@@ -11,8 +11,6 @@ using Communication;
 
 using Server.Moduls;
 
-using Helper;
-
 
 namespace Server
 {
@@ -35,12 +33,12 @@ namespace Server
 
         private Dictionary<string, User> userSessions = new Dictionary<string,User>();
 
-        KeyGenerator sessionKeyGenerator;
+        Encryption.KeyGenerator sessionKeyGenerator;
 
 
         // Config
         [NonSerialized()]
-        public Config config = new Config();
+        public Data.Config config = new Data.Config("Config/config.xml");
 
         // Game
         public GameData game;
@@ -91,7 +89,7 @@ namespace Server
 
         public Main()
         {
-            sessionKeyGenerator = new KeyGenerator(sessionKey);
+            sessionKeyGenerator = new Encryption.KeyGenerator(sessionKey);
         }
 
 
@@ -1206,7 +1204,7 @@ namespace Server
 
         public void loaded()
         {
-            config = new Config();
+            config = new Data.Config("Config/config.xml");
             response = new Dictionary<int, Command>();
             userClientList = new Dictionary<User, System.Net.Sockets.TcpClient>();
             tr = new Translator();

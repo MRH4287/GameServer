@@ -62,6 +62,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Data">
+      <HintPath>..\Lib\Data.dll</HintPath>
+    </Reference>
     <Reference Include="NetworkLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\NetworkLib.dll</HintPath>
@@ -77,12 +80,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="XML">
-      <HintPath>..\Lib\XML.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Config.cs" />
     <Compile Include="ConsoleIO\ConsoleCommand.cs" />
     <Compile Include="KeyGenerator\KeyGenerator.cs" />
     <Compile Include="Main.cs" />

@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Data</name>
+    </assembly>
+    <members>
+        <member name="T:Data.Config">
+            <summary>
+            Eine Klasse zur Verwaltung einer XML Konfigurationsdatei
+            </summary>
+        </member>
+        <member name="F:Data.Config.config">
+            <summary>
+            Die zu Verwendete Configuration
+            </summary>
+        </member>
+        <member name="F:Data.Config.parser">
+            <summary>
+            Der zu benutztende XMLParser
+            </summary>
+        </member>
+        <member name="F:Data.Config.defaultValues">
+            <summary>
+            die Standard-Werte, die verwendet werden sollen, wenn kein Wert in der Config-Datei steht
+            </summary>
+        </member>
+        <member name="F:Data.Config.path">
+            <summary>
+            Der Pfad zu der Konfigurations Datei
+            </summary>
+        </member>
+        <member name="M:Data.Config.#ctor(System.String)">
+            <summary>
+            Initialisiert die Konfiguration mit der angegebenen Datei
+            </summary>
+            <param name="path">Der Pfad zu der Config Datei</param>
+        </member>
+        <member name="M:Data.Config.#ctor(Data.Config)">
+            <summary>
+            Erstellt eine neue Kopie einer Config Datei
+            </summary>
+            <param name="config">Config Objekt</param>
+        </member>
+        <member name="M:Data.Config.parse(System.String)">
+            <summary>
+            Liest die Config Datei ein
+            </summary>
+            <param name="path">Pfad zur Config Datei</param>
+        </member>
+        <member name="M:Data.Config.getConfigurations">
+            <summary>
+            Bekomme alle Konfigurationseinträge, die in der Config Datei stehen.
+            </summary>
+            <remarks>
+            Werte die in der defaultValues Liste stehen werden NICHT ausgegeben.
+            Diese Funktion ist beabsichtigt, da so "versteckte" Konfigurationen exsistieren können
+            </remarks>
+            <returns>Ein Dictionary mit dem Pfad und dem aktuellem Wert der Konfiguration</returns>
+        </member>
+        <member name="M:Data.Config.searchConfig(Data.XMLTree,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Rekursive Suchfunktion, die alle Werte liefert, die in der Konfigurationsdatei steht.
+            </summary>
+            <remarks>Nicht die Werte in defaultValues!</remarks>
+            <param name="element">XMLTree in dem gesucht werden soll.</param>
+            <param name="list">Dictionary, in die die Konfigurationswerte gespeichert werden soll</param>
+            <param name="path">Aktueller Pfad</param>
+        </member>
+        <member name="P:Data.Config.Item(System.String)">
+            <summary>
+            Konfigurationseintrag
+            </summary>
+            <param name="index">Pfad zum Konfigurationseintrag</param>
+            <returns>Konfiguration</returns>
+        </member>
+        <member name="T:Data.XMLParser">
+            <summary>
+            Klasse zur Verwaltung von XML Dateien
+            </summary>
+        </member>
+        <member name="M:Data.XMLParser.read(System.String)">
+            <summary>
+            Liest eine XML Datei ein und liefert ein <see cref="T:Data.XMLTree"/> Objekt
+            </summary>
+            <param name="path">relative Pfad Angabe</param>
+            <returns>Liefert ein <see cref="T:Data.XMLTree"/> Objekt</returns>
+        </member>
+        <member name="M:Data.XMLParser.readString(System.String)">
+            <summary>
+            Liest einen String ein und liefert den XMLTree
+            </summary>
+            <param name="input">XML Eingabetext</param>
+            <returns>XMLTree Instanz</returns>
+        </member>
+        <member name="M:Data.XMLParser.parse(System.Xml.XmlLinkedNode)">
+            <summary>
+            Verarbeitet die XML Datei
+            </summary>
+        </member>
+        <member name="M:Data.XMLParser.save(Data.XMLTree)">
+            <summary>
+            Speicher den Baum in ein XMLDocument Objekt
+            </summary>
+            <param name="element">Das zu speichernde Objekt</param>
+            <returns>XMLObjekt Instanz</returns>
+        </member>
+        <member name="M:Data.XMLParser.save(Data.XMLTree,System.String)">
+            <summary>
+            Speichert den Baum in eine Datei
+            </summary>
+            <param name="element">Das zu speichernde Objekt</param>
+            <param name="filename">Pfad zur Datei</param>
+            <returns></returns>
+        </member>
+        <member name="M:Data.XMLParser.write(Data.XMLTree,System.Xml.XmlNode)">
+            <summary>
+            Rekursiver Speicheralgorithmus
+            </summary>
+            <param name="element">Das zu speichernde Objekt</param>
+            <param name="parent">Vater Knoten</param>
+            <returns>erstellter Hauptknoten</returns>
+        </member>
+        <member name="T:Data.XMLTree">
+            <summary>
+            Dateistruktur zur Anzeige und Organisation von XML Daten
+            </summary>
+        </member>
+        <member name="M:Data.XMLTree.#ctor(Data.XMLTree,System.String)">
+            <summary>
+            Erzeugt einen neuenen XML Baum
+            </summary>
+            <param name="parent">Vater Element</param>
+            <param name="name">Knoten Namen</param>
+        </member>
+        <member name="M:Data.XMLTree.getParent">
+            <summary>
+            Gibt den Vater des aktuellen Knotens an
+            </summary>
+            <returns>Vaterknoten</returns>
+        </member>
+        <member name="M:Data.XMLTree.addChild(Data.XMLTree)">
+            <summary>
+            Fügt dem Element einenen neuen Kindknoten hinzu
+            </summary>
+            <param name="child">der Hinzuzufügende Kindknoten</param>
+        </member>
+        <member name="M:Data.XMLTree.setValue(System.String)">
+            <summary>
+            Setzt den Wert des aktuellen Elements auf den gesetzten Wert
+            </summary>
+            <param name="value">der zu setztende Wert</param>
+        </member>
+        <member name="M:Data.XMLTree.getKey">
+            <summary>
+            Liefert den Schlüsselnamen des aktuellen Elements zurück
+            </summary>
+            <returns>Schlüsselname</returns>
+        </member>
+        <member name="M:Data.XMLTree.getValue">
+            <summary>
+            Liefert den Wert des aktuellen Knotens zurück
+            </summary>
+            <returns>Aktueller Wert</returns>
+        </member>
+        <member name="M:Data.XMLTree.getChildren">
+            <summary>
+            Liefert die Kinder als LinkedList zurück, für die verwendung mit foreach
+            </summary>
+            <returns>Liefert eine LinkedList</returns>
+        </member>
+        <member name="M:Data.XMLTree.haveChildren">
+            <summary>
+            Fragt nach, ob der aktuelle Knoten Kinder hat
+            </summary>
+            <returns>Hat der aktuelle Knoten Kinder</returns>
+        </member>
+        <member name="M:Data.XMLTree.haveChild(System.String)">
+            <summary>
+            Bestitzt der aktuelle Knoten ein bestimmtes Kind
+            </summary>
+            <param name="child">Das zu suchende Kind als String</param>
+            <returns>Ist das Element vorhanden</returns>
+        </member>
+        <member name="M:Data.XMLTree.GetEnumerator">
+            <summary>
+            Liefert einen Enumerator
+            </summary>
+            <returns>Enumerator</returns>
+        </member>
+        <member name="M:Data.XMLTree.haveChild(Data.XMLTree)">
+            <summary>
+            Bestitzt der aktuelle Knoten ein bestimmtes Kind
+            </summary>
+            <param name="child">Das zu suchende Kind als <see cref="T:Data.XMLTree"/></param>
+            <returns>Ist das Element vorhanden</returns>
+        </member>
+        <member name="M:Data.XMLTree.getChild(System.String)">
+            <summary>
+            Liefert das <see cref="T:Data.XMLTree"/> Objekt mit einem bestimmten Schlüsselnamen
+            </summary>
+            <param name="child">Das zu suchende Kind als string</param>
+            <returns>Das Element, wenn nicht vorhanden null</returns>
+        </member>
+        <member name="M:Data.XMLTree.addAtribute(System.String,System.String)">
+            <summary>
+            Fügt ein Atribut dem aktuellem Element hinzu
+            </summary>
+            <param name="key">Schlüssel</param>
+            <param name="atribut">Wert</param>
+        </member>
+        <member name="M:Data.XMLTree.getAtribute(System.String)">
+            <summary>
+            Liefert das Atribut mit dem Angegebenem Namen Zurück
+            </summary>
+            <param name="key">Schlüssel</param>
+            <returns>Atribut Wert</returns>
+        </member>
+        <member name="M:Data.XMLTree.setAtrubute(System.String,System.String)">
+            <summary>
+            Setzt einen Wert eines Atributes
+            </summary>
+            <param name="key">Schlüssel</param>
+            <param name="value">Wert</param>
+        </member>
+        <member name="M:Data.XMLTree.getAtributes">
+            <summary>
+            Gibt die Atribute in einer Generischen Tabelle zurück
+            </summary>
+            <returns>Generische Tabelle mit Atributen</returns>
+        </member>
+        <member name="M:Data.XMLTree.copy(Data.XMLTree)">
+            <summary>
+            Liefert eine Kopie des aktuellen Onjektes Zurück
+            </summary>
+            <param name="parent">Vater Knoten</param>
+            <returns>Kopie des Objektes</returns>
+        </member>
+        <member name="P:Data.XMLTree.Item(System.String)">
+            <summary>
+            Gibt die Atribute des Elementes wieder
+            </summary>
+            <param name="key">Atribut Name</param>
+            <returns>Atribut Wert</returns>
+        </member>
+        <member name="T:Data.InvokeHelper">
+            <summary>
+            Eine Klasse zum threadsicherem Zugriff auf GUI Komponenten
+            </summary>
+        </member>
+        <member name="M:Data.InvokeHelper.#ctor(System.Windows.Forms.Form)">
+            <summary>
+            Konstruktor der Klasse <see cref="T:Data.InvokeHelper"/>
+            </summary>
+            <param name="input">Window Form Instanz</param>
+        </member>
+        <member name="M:Data.InvokeHelper.SetText(System.Windows.Forms.Control,System.String)">
+            <summary>
+            Setzt Threadischer einen Text einer Textbox
+            </summary>
+            <param name="obj">Die zu verändernde Textbox</param>
+            <param name="text">DEr Text der hinzugrfügt werden soll</param>
+        </member>
+        <member name="M:Data.InvokeHelper.AppendText(System.Windows.Forms.Control,System.String)">
+            <summary>
+            Fügt Threadischer einen Text einer Textbox hinzu 
+            </summary>
+            <param name="obj">Die zu verändernde Textbox</param>
+            <param name="text">DEr Text der hinzugrfügt werden soll</param>
+        </member>
+        <member name="M:Data.InvokeHelper.setEnabled(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            Verändert Threadsicher die Eigenschaft Enabled eines Objektes
+            </summary>
+            <param name="obj">Die zu bearbeitende Control Instanz</param>
+            <param name="on">Der zu benutzende Wert</param>
+        </member>
+        <member name="M:Data.InvokeHelper.setVisible(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            Verändert Threadsicher die Eigenschaft Visible eines Objektes
+            </summary>
+            <param name="obj">Die zu bearbeitende Control Instanz</param>
+            <param name="visible">Der zu benutzende Wert</param>
+        </member>
+    </members>
+</doc>
