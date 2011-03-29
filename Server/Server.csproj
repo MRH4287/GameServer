@@ -65,6 +65,10 @@
     <Reference Include="Data">
       <HintPath>..\Lib\Data.dll</HintPath>
     </Reference>
+    <Reference Include="Encryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Encryption.dll</HintPath>
+    </Reference>
     <Reference Include="NetworkLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\NetworkLib.dll</HintPath>
@@ -83,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleIO\ConsoleCommand.cs" />
-    <Compile Include="KeyGenerator\KeyGenerator.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Moduls\BuildSystem.cs" />
     <Compile Include="Moduls\FlottenManagement.cs" />
