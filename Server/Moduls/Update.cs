@@ -70,12 +70,12 @@ namespace Server.Moduls
         /// <param name="user">Spieler</param>
         private void CheckUpdates(User user)
         {
-            List<Ship> listshipps = game.getShips();
+            List<Ship> listships = game.getShips();
             List<Station> liststations = game.getStations();
             List<Update> updates = getUpdates(user);
 
 
-            foreach (Ship ship in listshipps)
+            foreach (Ship ship in listships)
             {
                 if (ship.Uid == user)
                 {

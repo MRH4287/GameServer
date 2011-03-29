@@ -9,7 +9,7 @@
     <GameDataPath>./</GameDataPath>
 
     <Map>
-      <File>(4)GoldeneMitte.map</File>
+      <File>map.map</File>
       <ConnectRange>100</ConnectRange>
       <MaxConnections>4</MaxConnections>
       <MaxDepth>5</MaxDepth>

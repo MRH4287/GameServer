@@ -1268,10 +1268,10 @@ namespace Server
             //Statistik:
             Console.WriteLine();
             Console.WriteLine("Statistik:");
-            int stat_shipp_class = game.getShipTypes().Count;
+            int stat_ship_class = game.getShipTypes().Count;
             int stat_stat_class = game.getStationTypes().Count;
             int stat_planet_class = game.getPlanetTypes().Count;
-            int stat_shipp = game.getShips().Count;
+            int stat_ship = game.getShips().Count;
             int stat_stats = game.getStations().Count;
             int stat_users = game.getUsers().Count;
             int stat_updates = game.getUpdates().Count;
@@ -1281,9 +1281,9 @@ namespace Server
             int stat_research = modulmanager.tech.getResearch().Count;
 
             Console.WriteLine(stat_stat_class + " Stations Klassen geladen");
-            Console.WriteLine(stat_shipp_class + " Shiffs Klassen geladen");
+            Console.WriteLine(stat_ship_class + " Shiffs Klassen geladen");
             Console.WriteLine(stat_planet_class + " Planeten Klassen geladen");
-            Console.WriteLine(stat_shipp + " Schiffe geladen");
+            Console.WriteLine(stat_ship + " Schiffe geladen");
             Console.WriteLine(stat_stats + " Stationen geladen");
             Console.WriteLine(stat_users + " Benutzer geladen");
             Console.WriteLine(stat_updates + " Updates geladen");

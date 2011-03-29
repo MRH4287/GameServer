@@ -130,15 +130,20 @@ namespace Server.Moduls
 
 
 
-                            List<Solarsystem> near = getSystemsInRange(system, connectrange);
+                            LinkedList<Solarsystem> near = getSystemsInRange(system, connectrange);
                             if (near.Count > 0)
                             {
                                 int anzahl = rand.Next(1, near.Count);
-                                for (int j = 0; j < anzahl; j++)
+                                int j = 0;
+                                foreach (Solarsystem nearSystem in near)
                                 {
                                     try
                                     {
-                                        Solarsystem nearSystem = near[j];
+                                        j++;
+                                        if (j > anzahl)
+                                        {
+                                            break;
+                                        }
 
 
                                         if ((getConnectionCount(system) < maxconnections) && (getConnectionCount(nearSystem) < maxconnections) && !isConnection(system, nearSystem))
@@ -194,13 +199,19 @@ namespace Server.Moduls
                                     if (system.nodes.Count == 0)
                                     {
 
-                                        List<Solarsystem> near = getSystemsInRange(system, connectrange * 2);
+                                        LinkedList<Solarsystem> near = getSystemsInRange(system, connectrange * 2);
                                         if (near.Count > 0)
                                         {
                                             int anzahl = (new Random()).Next(1, near.Count);
-                                            for (int j = 0; j < anzahl; j++)
+
+                                            int j = 0;
+                                            foreach (Solarsystem nearSystem in near)
                                             {
-                                                Solarsystem nearSystem = near[j];
+                                                j++;
+                                                if (j > anzahl)
+                                                {
+                                                    break;
+                                                }
 
                                                 if ((getConnectionCount(system) < 2) && (getConnectionCount(nearSystem) < maxconnections) && !isConnection(system, nearSystem))
                                                 {
@@ -479,9 +490,9 @@ namespace Server.Moduls
         }
 
 
-        public List<Solarsystem> getSystemsInRange(Solarsystem start, double range)
+        public LinkedList<Solarsystem> getSystemsInRange(Solarsystem start, double range)
         {
-            List<Solarsystem> list = new List<Solarsystem>();
+            LinkedList<Solarsystem> list = new LinkedList<Solarsystem>();
 
             if (start != null)
             {
@@ -495,7 +506,7 @@ namespace Server.Moduls
                                   {
                                       lock (list)
                                       {
-                                          list.Add(system);
+                                          list.AddLast(system);
                                       }
                                   }
                               }
