@@ -25,7 +25,7 @@ namespace Server
 
            while (system.run())
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(5000);
             }
             
 

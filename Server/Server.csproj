@@ -62,17 +62,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Data">
-      <HintPath>..\Lib\Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Encryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Encryption.dll</HintPath>
-    </Reference>
-    <Reference Include="NetworkLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\NetworkLib.dll</HintPath>
-    </Reference>
     <Reference Include="Share, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Share\Share\bin\Debug\Share.dll</HintPath>
@@ -84,6 +73,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="SystemLib">
+      <HintPath>..\Lib\SystemLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleIO\ConsoleCommand.cs" />

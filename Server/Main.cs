@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MysqlConnect;
 using Network;
 using Game;
 using Game.Game;
@@ -15,7 +14,7 @@ using Server.Moduls;
 namespace Server
 {
     [Serializable]
-    class Main : IMysql
+    class Main
     {
         // Network:
         [NonSerialized()]
@@ -29,16 +28,16 @@ namespace Server
         [NonSerialized()]
         public Dictionary<User, System.Net.Sockets.TcpClient> userClientList = new Dictionary<User, System.Net.Sockets.TcpClient>();
 
-        int sessionKey = (new Random()).Next(1000,9999);
+        int sessionKey = (new Random()).Next(1000, 9999);
 
-        private Dictionary<string, User> userSessions = new Dictionary<string,User>();
+        private Dictionary<string, User> userSessions = new Dictionary<string, User>();
 
         Encryption.KeyGenerator sessionKeyGenerator;
 
 
         // Config
         [NonSerialized()]
-        public Data.Config config = new Data.Config("Config/config.xml");
+        public Data.Config config = new Data.Config("./Config/config.xml");
 
         // Game
         public GameData game;
@@ -102,72 +101,61 @@ namespace Server
 
         public void main()
         {
-            checkConfig();
 
-            //   try
-            //  {
-            int serverPort = int.Parse(config["TCP/port"]);
-            network = new TCP(serverPort, "GamePW");
-            network.OnTextRecieved += new TCP.TextRecievedEvent(TCP_TextRecieved);
-            network.OnClientConnected += new TCP.ClientConnectedEvent(TCP_ClientConnected);
-            network.OnError += new TCP.TCPErrorEvent(TCP_Error);
-            network.OnClientDisconnected += new TCP.ClientDisconnectedEvent(TCP_ClientDisconnected);
-
-
-            log("Lade Spiel Daten ... ");
-
-            string filepath = config["Game/GameDataPath"] + "GameData.dat";
-            if (!File.Exists(filepath))
+            try
             {
-                Console.WriteLine("Game Data Datei nicht gefunden!");
-                close = true;
-                return;
+                int serverPort = int.Parse(config["TCP/port"]);
+                network = new TCP(serverPort, "GamePW");
+                network.OnTextRecieved += new TCP.TextRecievedEvent(TCP_TextRecieved);
+                network.OnClientConnected += new TCP.ClientConnectedEvent(TCP_ClientConnected);
+                network.OnError += new TCP.TCPErrorEvent(TCP_Error);
+                network.OnClientDisconnected += new TCP.ClientDisconnectedEvent(TCP_ClientDisconnected);
+
+
+                log("Lade Spiel Daten ... ");
+
+                string filepath = config["Game/GameDataPath"] + "GameData.dat";
+                if (!File.Exists(filepath))
+                {
+                    Console.WriteLine("Game Data Datei nicht gefunden!");
+                    close = true;
+                    return;
+                }
+
+                game = new GameData(filepath);
+                log("Spiel Dateien erfolgreich geparsed");
+
+
+                modulmanager = new ModulManager(this);
+                log("Modul Manager erfolgreich gestartet");
+
+                printStatistics();
+
+                //  log("Server bereit für Anfragen ...");
+
+
+                // TestUser
+                User user = new User(1, "test", "4", game.getRace(1));
+                user.password = "test";
+                user.encryptPassword();
+
+                addUser(user);
+
+
+                log("Lade Map-Daten bitte warten...");
+
+                modulmanager.map.load(config["Game/Map/File"]);
+
+
+
             }
-
-            game = new GameData(filepath);
-            log("Spiel Dateien erfolgreich geparsed");
-
-
-            modulmanager = new ModulManager(this);
-            log("Modul Manager erfolgreich gestartet");
-
-            printStatistics();
-
-            //  log("Server bereit für Anfragen ...");
-
-
-            // TestUser
-            User user = new User(1, "test", "4", game.getRace(1));
-            user.password = "test";
-            user.encryptPassword();
-
-            addUser(user);
-
-
-            log("Lade Map-Daten bitte warten...");
-
-            modulmanager.map.load(config["Game/Map/File"]);
-
-
-
-            //   }
-            //  catch (Exception ex)
-            //  {
-            //      log("Fehler: " + ex.Message);
-            //  close = true;
-            //  }
+            catch (Exception ex)
+            {
+                log("Fehler: " + ex.Message);
+                close = true;
+            }
         }
 
-
-
-        #region IMysql Member
-
-        public void MYSQL_Error(Exception error)
-        {
-            Console.WriteLine("MysqlError: " + error.Message);
-        }
-
-        #endregion
 
         #region TCP_Server Member
 
@@ -1131,14 +1119,14 @@ namespace Server
 
                 case dataManipulationMode.LOGIN:
                     string username = (string)request.Arguments[1];
-                    string password = (string)request.Arguments[2];  
+                    string password = (string)request.Arguments[2];
 
                     User user = login(username, password);
                     if (user != null)
                     {
                         userClientList.Add(user, client);
                         userSessions.Add(sessionKeyGenerator.getKey(), user);
-                        
+
                     }
 
                     result.Arguments.Add(user);
@@ -1209,8 +1197,6 @@ namespace Server
             userClientList = new Dictionary<User, System.Net.Sockets.TcpClient>();
             tr = new Translator();
 
-            checkConfig();
-
 
             int serverPort = int.Parse(config["TCP/port"]);
             network = new TCP(serverPort, "GamePW");
@@ -1241,24 +1227,6 @@ namespace Server
 
         }
 
-        private void checkConfig()
-        {
-
-            string curFile = @"Config\config.xml";
-            if (!File.Exists(curFile))
-            {
-                Console.WriteLine("Config Datei nicht gefunden!");
-                close = true;
-
-            }
-            else
-            {
-                config.parse(curFile);
-
-            }
-
-
-        }
 
         /// <summary>
         /// Schreib die Statistik in die Konsole
